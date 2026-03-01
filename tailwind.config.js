@@ -1,6 +1,16 @@
 /** @type {import('tailwindcss').Config} */
 export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
-  theme: { extend: {} },
+  theme: { 
+    extend: {
+      colors: {
+        primary: "var(--primary)",
+        secondary: "var(--secondary)",
+        blueSky: "var(--blue-sky)",
+        blueberry: "var(--blueberry)",
+        lightBlue: "var(--light-blue)",
+      }
+    } 
+  },
   plugins: [],
 };

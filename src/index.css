@@ -1,3 +1,25 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+* {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --primary: #0033a0;
+  --secondary: #1f2c5e;
+  --blue-sky: #1897d4;
+  --blueberry: #99add9;
+  --light-blue: #d9edf8;
+
+  font-family: "usual", sans-serif;
+  font-weight: 300;
+  font-size: 1rem;
+  line-height: 1rem;
+}
+

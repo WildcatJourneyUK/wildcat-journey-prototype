@@ -1,11 +1,15 @@
-import './App.css'
+import {
+  createBrowserRouter,
+  RouterProvider,
+} from 'react-router-dom';
 
-function App() {
-  return (
-    <>
-      <h1>Wildcat Journey</h1>
-    </>
-  )
+const router = createBrowserRouter([
+  {
+    path: '/',
+    element: <h1>Home Page</h1>
+  },
+]);
+
+export default function App() {
+  return <RouterProvider router={router} />
 }
-
-export default App
