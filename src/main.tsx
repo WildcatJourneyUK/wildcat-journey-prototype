@@ -7,8 +7,10 @@ import Footer from './layout/footer.tsx'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <Header/> 
-      <App />
-    <Footer />
+    <div className="appShell">
+      <Header/> 
+        <App />
+      <Footer />
+    </div>
   </StrictMode>,
 )
