@@ -1,7 +1,13 @@
 import { Routes, Route } from "react-router-dom";
-import { AuthPage } from "./features/auth/AuthPage";
-import { LogoutAndRedirect, ProtectedRoute } from "./services/ProtectedRoute";
+import { LogoutAndRedirect, ProtectedRoute } from "./routes/ProtectedRoute";
+import DashboardRouter from "./routes/DashboardRouter";
+
 import StudentDashboard from "./features/student/StudentDashboard";
+import AmbassadorDashboard from "./features/ambassador/AmbassadorDashboard";
+import AdmissionDashboard from "./features/admission/AdmissionDashboard";
+
+import AuthPage from "./features/auth/AuthPage";
+import ProfilePage from "./features/auth/ProfilePage";
 
 export default function App() {
   return (
@@ -9,10 +15,46 @@ export default function App() {
       <Route path="/auth" element={<AuthPage />} />
 
       <Route
-        path="/student"
+        path="/dashboard"
+        element={
+          <ProtectedRoute>
+            <DashboardRouter />
+          </ProtectedRoute>
+        }
+      />
+
+       <Route
+        path="/student/dashboard"
         element={
           <ProtectedRoute>
             <StudentDashboard />
+          </ProtectedRoute>
+        }
+      />
+
+      <Route
+        path="/ambassador/dashboard"
+        element={
+          <ProtectedRoute>
+            <AmbassadorDashboard />
+          </ProtectedRoute>
+        }
+      />
+
+      <Route
+        path="/admissions/dashboard"
+        element={
+          <ProtectedRoute>
+            <AdmissionDashboard />
+          </ProtectedRoute>
+        }
+      />
+
+      <Route
+        path="/profile"
+        element={
+          <ProtectedRoute>
+            <ProfilePage />
           </ProtectedRoute>
         }
       />

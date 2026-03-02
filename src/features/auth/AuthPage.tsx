@@ -4,7 +4,7 @@ import { FiEye, FiEyeOff } from "react-icons/fi";
 import { signIn, signUp } from "../../services/AuthProvider";
 import { BiArrowBack } from "react-icons/bi";
 
-export function AuthPage() {
+export default function AuthPage() {
   const nav = useNavigate();
 
   const [mode, setMode] = useState<"signin" | "signup">("signin");
@@ -48,7 +48,7 @@ export function AuthPage() {
       }
 
       await signIn(email, password);
-      nav("/student");
+      nav("/dashboard");
     } catch (err: unknown) {
       const message =
         err instanceof Error ? err.message : "Something went wrong";

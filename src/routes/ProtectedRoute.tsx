@@ -1,6 +1,7 @@
 import { Navigate } from "react-router-dom";
 import { useEffect, useState, type JSX } from "react";
 import { getSession, signOut } from "../services/AuthProvider";
+import Loading from "../components/Loading";
 
 export function ProtectedRoute({ children }: { children: JSX.Element }) {
   const [allowed, setAllowed] = useState<boolean | null>(null);
@@ -49,7 +50,7 @@ export function LogoutAndRedirect() {
   }, []);
 
   if (!done) {
-    return null; 
+    return <Loading />; 
   }
 
   return <Navigate to="/auth" replace />;

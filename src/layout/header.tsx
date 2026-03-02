@@ -1,9 +1,10 @@
-import { FiLogOut, FiUser } from "react-icons/fi";
+import { FiLogOut } from "react-icons/fi";
 import ukLogo from "../assets/uk-tiny-logo.svg";
 import WildcatJourneyLogo from "../assets/wildcat-journey-logo.svg";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { signOut, getSession, onAuthChange } from "../services/AuthProvider";
+import { CgProfile } from "react-icons/cg";
 
 export default function Header() {
   const nav = useNavigate();
@@ -38,7 +39,7 @@ export default function Header() {
               className="hover:opacity-70 transition"
               title="Profile"
             >
-              <FiUser />
+              <CgProfile />
             </button>
 
             <button
