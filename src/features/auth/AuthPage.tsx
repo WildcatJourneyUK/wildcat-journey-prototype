@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
-import { useAuth } from "../../services/AuthProvider";
 import { useNavigate } from "react-router-dom";
 import { FiEye, FiEyeOff } from "react-icons/fi";
+import { signIn, signUp } from "../../services/AuthProvider";
+import { BiArrowBack } from "react-icons/bi";
 
 export function AuthPage() {
-  const { signIn, signUp } = useAuth();
   const nav = useNavigate();
 
   const [mode, setMode] = useState<"signin" | "signup">("signin");
@@ -18,6 +18,7 @@ export function AuthPage() {
 
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [emailSent, setEmailSent] = useState(false);
 
   useEffect(() => {
     if (mode !== "signup") return;
@@ -27,7 +28,7 @@ export function AuthPage() {
     } else {
       if (error === "Passwords do not match") setError(null);
     }
-  }, [mode, password, confirmPassword]); 
+  }, [mode, password, error, confirmPassword]); 
 
   async function submit(e: React.FormEvent) {
     e.preventDefault();
@@ -37,18 +38,21 @@ export function AuthPage() {
     try {
       if (mode === "signup") {
         if (password !== confirmPassword) {
-          setError("Passwords do not match");
-          setBusy(false);
-          return;
+          throw new Error("Passwords do not match");
         }
 
         await signUp(email, password, fullName);
-      } else {
-        await signIn(email, password);
+
+        setEmailSent(true);
+        return;
       }
-      nav("/app");
-    } catch (err: any) {
-      setError(err?.message ?? "Something went wrong");
+
+      await signIn(email, password);
+      nav("/student");
+    } catch (err: unknown) {
+      const message =
+        err instanceof Error ? err.message : "Something went wrong";
+      setError(message);
     } finally {
       setBusy(false);
     }
@@ -65,111 +69,132 @@ export function AuthPage() {
             {mode === "signup" ? "Join the journey toward becoming a UK Wildcat." : "Log in to continue your Wildcat Journey."}
           </p>
 
-          <form className="mt-6 space-y-3" onSubmit={submit}>
-            {mode === "signup" && (
+          {emailSent ? (
+            <div className="mt-6 rounded-xl bg-lightBlue text-black p-4 text-center">
+              <h2 className="font-semibold text-primary text-lg mb-2">
+                Check your email 📩
+              </h2>
+              <p>
+                We’ve sent a confirmation link to: <strong>{email}</strong>. <br/>
+                Please confirm your email before signing in.
+              </p>
+              <button
+                onClick={() => setEmailSent(false)}
+                className="w-full flex items-center justify-center gap-3 mt-6 rounded-xl border border-white/10 bg-primary hover:bg-secondary transition px-4 py-2 text-white text-xl disabled:opacity-50"
+              >
+                <BiArrowBack/>
+                Back to sign in
+              </button>
+            </div>
+          ) : (
+            <form className="mt-6 space-y-3" onSubmit={submit}>
+              {mode === "signup" && (
+                <div>
+                  <label className="text-md text-primary">Full name</label>
+                  <input
+                    className="mt-1 w-full rounded-xl border border-white/10 bg-[#e8f0fe] px-3 py-2"
+                    value={fullName}
+                    onChange={(e) => setFullName(e.target.value)}
+                    placeholder="Name Surname"
+                    required
+                  />
+                </div>
+              )}
+
               <div>
-                <label className="text-md text-primary">Full name</label>
+                <label className="text-primary">Email</label>
                 <input
                   className="mt-1 w-full rounded-xl border border-white/10 bg-[#e8f0fe] px-3 py-2"
-                  value={fullName}
-                  onChange={(e) => setFullName(e.target.value)}
-                  placeholder="Name Surname"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="you@email.com"
+                  type="email"
                   required
                 />
               </div>
-            )}
 
-            <div>
-              <label className="text-primary">Email</label>
-              <input
-                className="mt-1 w-full rounded-xl border border-white/10 bg-[#e8f0fe] px-3 py-2"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder="you@email.com"
-                type="email"
-                required
-              />
-            </div>
-
-            <div>
-              <label className="text-primary">Password</label>
-              <div className="relative">
-                <input
-                  className="mt-1 w-full rounded-xl border border-white/10 bg-[#e8f0fe] px-3 py-2 pr-10"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  placeholder="••••••••"
-                  type={showPassword ? "text" : "password"}
-                  minLength={6}
-                  required
-                />
-
-                <button
-                  type="button"
-                  onClick={() => setShowPassword((prev) => !prev)}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-primary"
-                >
-                  {showPassword ? <FiEyeOff size={18} /> : <FiEye size={18} />}
-                </button>
-              </div>
-            </div>
-
-            {mode === "signup" && (
               <div>
-                <label className="text-primary">Confirm password</label>
+                <label className="text-primary">Password</label>
                 <div className="relative">
                   <input
                     className="mt-1 w-full rounded-xl border border-white/10 bg-[#e8f0fe] px-3 py-2 pr-10"
-                    value={confirmPassword}
-                    onChange={(e) => setConfirmPassword(e.target.value)}
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
                     placeholder="••••••••"
-                    type={showConfirmPassword ? "text" : "password"}
+                    type={showPassword ? "text" : "password"}
                     minLength={6}
                     required
                   />
 
                   <button
                     type="button"
-                    onClick={() => setShowConfirmPassword((prev) => !prev)}
+                    onClick={() => setShowPassword((prev) => !prev)}
                     className="absolute right-3 top-1/2 -translate-y-1/2 text-primary"
                   >
-                    {showConfirmPassword ? <FiEyeOff size={18} /> : <FiEye size={18} />}
+                    {showPassword ? <FiEyeOff size={18} /> : <FiEye size={18} />}
                   </button>
                 </div>
               </div>
-            )}
 
-            {error && (
-              <div className="rounded-xl bg-red-200/50 text-red-500 font-semibold p-3 text-md">
-                * {error}
-              </div>
-            )}
+              {mode === "signup" && (
+                <div>
+                  <label className="text-primary">Confirm password</label>
+                  <div className="relative">
+                    <input
+                      className="mt-1 w-full rounded-xl border border-white/10 bg-[#e8f0fe] px-3 py-2 pr-10"
+                      value={confirmPassword}
+                      onChange={(e) => setConfirmPassword(e.target.value)}
+                      placeholder="••••••••"
+                      type={showConfirmPassword ? "text" : "password"}
+                      minLength={6}
+                      required
+                    />
 
-            <button
-              disabled={busy}
-              className="w-full rounded-xl border border-white/10 bg-primary hover:bg-secondary transition px-4 py-2 text-white text-xl disabled:opacity-50"
-              >
-              {busy ? "Please wait..." : mode === "signup" ? "Sign up" : "Sign in"}
-            </button>
-          </form>
+                    <button
+                      type="button"
+                      onClick={() => setShowConfirmPassword((prev) => !prev)}
+                      className="absolute right-3 top-1/2 -translate-y-1/2 text-primary"
+                    >
+                      {showConfirmPassword ? <FiEyeOff size={18} /> : <FiEye size={18} />}
+                    </button>
+                  </div>
+                </div>
+              )}
 
-          <div className="mt-4 text-md text-primary opacity-80">
-            {mode === "signup" ? (
-              <>
-                <span className="text-black">Already have an account?{" "}</span>
-                <button className="underline" onClick={() => setMode("signin")}>
-                  Sign in
-                </button>
-              </>
-            ) : (
-              <>
-                <span className="text-black">New here?{" "}</span>
-                <button className="underline hover:scale-100" onClick={() => setMode("signup")}>
-                  Create an account
-                </button>
-              </>
-            )}
-          </div>
+              {error && (
+                <div className="rounded-xl bg-red-200/50 text-red-500 font-semibold p-3 text-md">
+                  * {error}
+                </div>
+              )}
+
+              <button
+                disabled={busy}
+                className="w-full rounded-xl border border-white/10 bg-primary hover:bg-secondary transition px-4 py-2 text-white text-xl disabled:opacity-50"
+                >
+                {busy ? "Please wait..." : mode === "signup" ? "Sign up" : "Sign in"}
+              </button>
+            </form>
+          )}
+
+          {!emailSent && (
+            <div className="mt-4 text-md text-primary opacity-80">
+              {mode === "signup" ? (
+                <>
+                  <span className="text-black">Already have an account?{" "}</span>
+                  <button className="underline" onClick={() => setMode("signin")}>
+                    Sign in
+                  </button>
+                </>
+              ) : (
+                <>
+                  <span className="text-black">New here?{" "}</span>
+                  <button className="underline hover:scale-100" onClick={() => setMode("signup")}>
+                    Create an account
+                  </button>
+                </>
+              )}
+            </div>
+          )}
         </div>
       </div>
     </div>
