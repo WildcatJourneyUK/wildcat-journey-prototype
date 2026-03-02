@@ -1,4 +1,3 @@
-// src/pages/ProfilePage.tsx
 import { useEffect, useMemo, useState } from "react";
 import type { User } from "@supabase/supabase-js";
 import { getUser } from "../../services/AuthProvider";
@@ -545,7 +544,7 @@ export default function ProfilePage() {
                   </div>
                 </form>                
               )}
-              
+
               {onboardingCompleted && (
                 <button onClick={() => nav("/dashboard")} className="mt-6 flex items-center gap-3 rounded-xl bg-primary px-5 py-2 text-white hover:bg-secondary transition disabled:opacity-50">
                   <BiArrowBack />
