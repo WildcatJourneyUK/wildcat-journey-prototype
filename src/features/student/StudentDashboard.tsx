@@ -154,29 +154,29 @@ export default function StudentDashboard() {
     () => [
       {
         id: "a1",
-        fullName: "Sofia Gomez",
+        fullName: "Sofia Ramos",
         major: "Biology",
         minors: ["Public Health"],
         interests: ["Pre-med", "Research", "Student life"],
         languages: ["Spanish", "English"],
-        avatarUrl: "https://i.pravatar.cc/150?img=14",
+        avatarUrl: "https://i.pravatar.cc/150?img=23",
       },
       {
         id: "a2",
-        fullName: "Diego Marroquin",
+        fullName: "Diego Rodriguez",
         major: "Computer Science",
         minors: ["Entrepreneurship"],
         interests: ["Hackathons", "AI", "Career prep"],
         languages: ["Spanish", "English"],
-        avatarUrl: "https://i.pravatar.cc/150?img=52",
+        avatarUrl: "https://i.pravatar.cc/150?img=53",
       },
       {
         id: "a3",
-        fullName: "Fabiola Cadenas",
+        fullName: "Alice Branco",
         major: "Business",
         minors: ["Marketing"],
         interests: ["Leadership", "Campus involvement", "Internships"],
-        languages: ["Spanish", "English"],
+        languages: ["Portuguese", "English"],
         avatarUrl: "https://i.pravatar.cc/150?img=44",
       },
     ],
@@ -420,7 +420,7 @@ export default function StudentDashboard() {
                   {major ? (
                     <p className="text-black/80">
                       <span className="font-semibold text-primary">Intended major:</span>{" "}
-                      {major}
+                      {major} 
                     </p>
                   ) : null}
 
@@ -493,7 +493,6 @@ export default function StudentDashboard() {
                     />
                     <div className="min-w-0">
                       <p className="font-semibold text-primary truncate">{a.fullName}</p>
-                      <p className="text-sm text-black/60">{a.major}</p>
                       {a.minors.length > 0 ? (
                         <p className="text-xs text-black/50">Minors: {a.minors.join(", ")}</p>
                       ) : null}
@@ -501,7 +500,8 @@ export default function StudentDashboard() {
                   </div>
 
                   <div className="mt-3">
-                    <p className="text-xs text-black/60">Interests</p>
+                    <p className="text-md text-black">{a.major}</p>
+                    <p className="text-xs text-black">Interests</p>
                     <div className="mt-1 flex flex-wrap gap-2">{a.interests.map(chip)}</div>
                   </div>
 

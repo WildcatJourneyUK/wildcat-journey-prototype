@@ -503,7 +503,7 @@ export default function AmbassadorDashboard() {
               </div>
 
               <p className="mt-4 text-black/70">
-                Review mentorship matches and manage quests and badges that guide students through their Wildcat Journey.
+                Review mentorship matches and manage quests, opportunities, and badges that guide students through their Wildcat Journey.
               </p>
             </>
           ) : (
