@@ -1,0 +1,58 @@
+import type { VideoItem } from "./admissions";
+
+export const videosMock: VideoItem[] = [
+  {
+    id: "v1",
+    title: "UK Campus Tour 2026 | Explore the University of Kentucky with Real Students",
+    youtubeId: "FCD9apyidFE",
+    continent: "North America",
+    region: "USA",
+    language: "English",
+    tags: ["welcome", "international", "overview"],
+  },
+  {
+    id: "v2",
+    title: "University of Kentucky First-Generation Student Stories",
+    youtubeId: "Rn2IqaQCufs",
+    continent: "North America",
+    region: "USA",
+    language: "English",
+    tags: ["campus tour", "student life"],
+  },
+  {
+    id: "v3",
+    title: "Student Story: Moving Abroad & Finding Community",
+    youtubeId: "CJPu3XRk7mk",
+    continent: "South America",
+    region: "Brazil",
+    language: "Portuguese",
+    tags: ["story", "community"],
+  },
+  {
+    id: "v4",
+    title: "Student Interview: Research Opportunities & Support",
+    youtubeId: "YQRLG1v76KA",
+    continent: "Europe",
+    region: "Western Europe",
+    language: "French",
+    tags: ["research", "academics"],
+  },
+  {
+    id: "v5",
+    title: "International Admissions Tips: Application & Next Steps",
+    youtubeId: "n9jFxWRD0OU",
+    continent: "Asia",
+    region: "South Asia",
+    language: "English",
+    tags: ["admissions", "tips"],
+  },
+  {
+    id: "v6",
+    title: "UK Grad, First in Her Family to Earn a College Degree, Hopes to Make Our World Healthier",
+    youtubeId: "aBg4SYNrnes",
+    continent: "Africa",
+    region: "West Africa",
+    language: "English",
+    tags: ["clubs", "events"],
+  },
+];
