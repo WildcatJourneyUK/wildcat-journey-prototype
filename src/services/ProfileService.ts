@@ -1,4 +1,3 @@
-// src/services/ProfileService.ts
 import type { User } from "@supabase/supabase-js";
 import { supabase } from "./SupabaseClient";
 
@@ -247,7 +246,6 @@ export class ProfileService {
 
     if (!code) throw new Error("Please enter an invite code.");
 
-    // search invite
     const { data: invite, error: readErr } = await supabase
       .from("role_invites")
       .select("code, role, max_uses, uses, expires_at")
@@ -265,11 +263,15 @@ export class ProfileService {
     }
 
     const newRole = toRole(invite.role);
-    if (newRole !== "ambassador" && newRole !== "admissions_officer") {
+
+    if (
+      newRole !== "student" &&
+      newRole !== "ambassador" &&
+      newRole !== "admissions_officer"
+    ) {
       throw new Error("Invalid role for this code.");
     }
 
-    // increment invite use
     const { error: updInviteErr } = await supabase
       .from("role_invites")
       .update({ uses: invite.uses + 1 })
@@ -277,7 +279,6 @@ export class ProfileService {
 
     if (updInviteErr) throw updInviteErr;
 
-    // update role in profile
     const { error: updProfileErr } = await supabase
       .from("profiles")
       .update({ role: newRole })

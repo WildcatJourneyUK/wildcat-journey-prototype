@@ -7,7 +7,7 @@ import AmbassadorDashboard from "./features/ambassador/AmbassadorDashboard";
 import AdmissionDashboard from "./features/admission/AdmissionDashboard";
 
 import AuthPage from "./features/auth/AuthPage";
-import ProfilePage from "./features/auth/ProfilePage";
+import ProfilePage from "./features/profile/ProfilePage";
 
 export default function App() {
   return (
