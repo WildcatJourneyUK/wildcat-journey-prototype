@@ -13,12 +13,12 @@ import {
 
 import { levelIndex, normalizeStudentLevel } from "./studentHelpers";
 import type { Quest, StudentLevel } from "./student";
-import StudentHeader from "./components/StudentHeader";
-import OnboardingBanner from "./components/OnboardingBanner";
-import MentorshipMatches from "./components/MentorshipMatches";
-import OpportunityMatches from "./components/OpportunityMatches";
-import QuestBoard from "./components/QuestBoard";
-import QuestModal from "./components/QuestModal";
+import StudentHeader from "./sections/StudentHeader";
+import OnboardingBanner from "./sections/OnboardingBanner";
+import MentorshipMatches from "./sections/MentorshipMatches";
+import OpportunityMatches from "./sections/OpportunityMatches";
+import QuestBoard from "./sections/QuestBoard";
+import QuestModal from "./sections/QuestModal";
 
 export default function StudentDashboard() {
   const nav = useNavigate();
