@@ -4,6 +4,8 @@ export const ambassadorMatchesMock: AmbassadorCard[] = [
   {
     id: "a1",
     fullName: "Sofia Ramos",
+    country: "Spain",
+    countryCode: "es",
     major: "Biology",
     minors: ["Public Health"],
     interests: ["Pre-med", "Research", "Student life"],
@@ -13,6 +15,8 @@ export const ambassadorMatchesMock: AmbassadorCard[] = [
   {
     id: "a2",
     fullName: "Diego Rodriguez",
+    country: "Peru",
+    countryCode: "pe",
     major: "Computer Science",
     minors: ["Entrepreneurship"],
     interests: ["Hackathons", "AI", "Career prep"],
@@ -22,6 +26,8 @@ export const ambassadorMatchesMock: AmbassadorCard[] = [
   {
     id: "a3",
     fullName: "Alice Branco",
+    country: "Brazil",
+    countryCode: "br",
     major: "Business",
     minors: ["Marketing"],
     interests: ["Leadership", "Campus involvement", "Internships"],

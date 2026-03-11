@@ -10,6 +10,8 @@ export type StudentLevel = (typeof STUDENT_LEVELS)[number];
 export type AmbassadorCard = {
   id: string;
   fullName: string;
+  country?: string;
+  countryCode?: string;
   major: string;
   minors: string[];
   interests: string[];

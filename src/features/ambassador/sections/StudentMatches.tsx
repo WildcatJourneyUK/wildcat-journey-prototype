@@ -28,7 +28,14 @@ export default function StudentMatchesSection({ matches }: Props) {
               />
               <div className="min-w-0">
                 <p className="truncate font-semibold text-primary">{s.fullName}</p>
-                <p className="text-sm text-black/60">{s.country}</p>
+                <div className="flex items-center gap-2">
+                  <img
+                    src={`https://flagcdn.com/24x18/${s.countryCode}.png`}
+                    alt={s.country}
+                    className="h-4 w-6 rounded-sm"
+                    />
+                  <span>{s.country}</span>
+                </div>
               </div>
             </div>
 
@@ -43,20 +50,20 @@ export default function StudentMatchesSection({ matches }: Props) {
                 <TagChips items={s.interests} />
               </div>
 
-              <div className="mt-3 flex gap-2">
+              <div className="pt-3 flex gap-2">
                 <button
                   type="button"
                   className="w-full rounded-xl bg-primary px-3 py-2 text-white transition hover:bg-secondary"
                   onClick={() => console.log("Open student profile:", s.id)}
                 >
-                  View profile
+                  Connect
                 </button>
                 <button
                   type="button"
                   className="w-full rounded-xl border border-black/10 bg-white px-3 py-2 transition hover:opacity-80"
                   onClick={() => console.log("Send message:", s.id)}
                 >
-                  Message
+                  Profile
                 </button>
               </div>
             </div>

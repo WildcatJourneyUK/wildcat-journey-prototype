@@ -2,6 +2,7 @@ export type StudentMatch = {
   id: string;
   fullName: string;
   country: string;
+  countryCode: string;
   intendedMajor: string;
   interests: string[];
   avatarUrl: string;
