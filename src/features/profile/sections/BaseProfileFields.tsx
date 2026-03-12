@@ -35,7 +35,7 @@ export default function BaseProfileFields({
           className="mt-2 w-full rounded-xl border border-black/10 bg-[#e8f0fe] px-3 py-2"
           value={country}
           onChange={(e) => setCountry(e.target.value)}
-          placeholder="Brazil, Colombia, ..."
+          placeholder="Brazil, Colombia, Japan..."
         />
       </div>
 

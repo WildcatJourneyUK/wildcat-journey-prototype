@@ -1,4 +1,3 @@
-import { useNavigate } from "react-router-dom";
 import { levelLabel } from "../studentHelpers";
 import type { StudentLevel } from "../student";
 
@@ -32,8 +31,6 @@ export default function StudentHeader({
   interests,
   badges,
 }: Props) {
-  const nav = useNavigate();
-
   return (
     <div className="rounded-2xl border border-primary bg-white p-6">
       <div className="flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
@@ -80,15 +77,6 @@ export default function StudentHeader({
               Complete your profile to unlock mentorship matching and your quest board.
             </p>
           )}
-        </div>
-
-        <div className="flex gap-2">
-          <button
-            className="rounded-xl border border-black/10 bg-white px-4 py-2 transition hover:opacity-80"
-            onClick={() => nav("/profile")}
-          >
-            Profile
-          </button>
         </div>
       </div>
     </div>

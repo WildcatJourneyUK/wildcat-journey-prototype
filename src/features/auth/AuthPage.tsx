@@ -79,7 +79,7 @@ export default function AuthPage() {
                 Please confirm your email before signing in.
               </p>
               <button
-                onClick={() => setEmailSent(false)}
+                onClick={() => {setEmailSent(false); setMode("signin");}}
                 className="w-full flex items-center justify-center gap-3 mt-6 rounded-xl border border-white/10 bg-primary hover:bg-secondary transition px-4 py-2 text-white text-xl disabled:opacity-50"
               >
                 <BiArrowBack/>
