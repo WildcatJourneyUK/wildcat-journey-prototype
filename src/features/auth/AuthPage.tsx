@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { FiEye, FiEyeOff } from "react-icons/fi";
 import { signIn, signUp } from "../../services/AuthProvider";
-import { BiArrowBack } from "react-icons/bi";
+import AuthForm from "./components/AuthForm";
+import AuthEmailSent from "./components/AuthEmailSent";
 
 export default function AuthPage() {
   const nav = useNavigate();
@@ -25,10 +25,10 @@ export default function AuthPage() {
 
     if (password !== confirmPassword && confirmPassword.length > 0) {
       setError("Passwords do not match");
-    } else {
-      if (error === "Passwords do not match") setError(null);
+    } else if (error === "Passwords do not match") {
+      setError(null);
     }
-  }, [mode, password, error, confirmPassword]); 
+  }, [mode, password, confirmPassword, error]);
 
   async function submit(e: React.FormEvent) {
     e.preventDefault();
@@ -42,7 +42,6 @@ export default function AuthPage() {
         }
 
         await signUp(email, password, fullName);
-
         setEmailSent(true);
         return;
       }
@@ -58,144 +57,79 @@ export default function AuthPage() {
     }
   }
 
+  function handleBackToSignIn() {
+    setEmailSent(false);
+    setMode("signin");
+  }
+
   return (
-    <div className="mainContent flex items-center justify-center bg-[url('/speckled-texture-bg.png')] bg-cover bg-center">
-      <div className="flex items-center justify-center p-6">
-        <div className="w-[30vw] rounded-2xl border border-primary bg-white text-black p-6">
-          <h1 className="text-3xl text-primary text-center font-semibold">
-            {mode === "signup" ? "Create your account" : "Welcome back"}
-          </h1>
-          <p className="text-md text-center mt-1">
-            {mode === "signup" ? "Join the journey toward becoming a UK Wildcat." : "Log in to continue your Wildcat Journey."}
-          </p>
+    <div className="mainContent flex min-h-screen items-center justify-center bg-[url('/speckled-texture-bg.png')] bg-cover bg-center px-4 py-8 sm:px-6">
+      <div className="w-full max-w-md rounded-2xl border border-primary bg-white p-4 text-black shadow-sm sm:p-6">
+        <h1 className="text-center text-2xl font-semibold text-primary sm:text-3xl">
+          {mode === "signup" ? "Create your account" : "Welcome back 😼"}
+        </h1>
 
-          {emailSent ? (
-            <div className="mt-6 rounded-xl bg-lightBlue text-black p-4 text-center">
-              <h2 className="font-semibold text-primary text-lg mb-2">
-                Check your email 📩
-              </h2>
-              <p>
-                We’ve sent a confirmation link to: <strong>{email}</strong>. <br/>
-                Please confirm your email before signing in.
-              </p>
-              <button
-                onClick={() => setEmailSent(false)}
-                className="w-full flex items-center justify-center gap-3 mt-6 rounded-xl border border-white/10 bg-primary hover:bg-secondary transition px-4 py-2 text-white text-xl disabled:opacity-50"
-              >
-                <BiArrowBack/>
-                Back to sign in
-              </button>
-            </div>
-          ) : (
-            <form className="mt-6 space-y-3" onSubmit={submit}>
-              {mode === "signup" && (
-                <div>
-                  <label className="text-md text-primary">Full name</label>
-                  <input
-                    className="mt-1 w-full rounded-xl border border-white/10 bg-[#e8f0fe] px-3 py-2"
-                    value={fullName}
-                    onChange={(e) => setFullName(e.target.value)}
-                    placeholder="Name Surname"
-                    required
-                  />
-                </div>
-              )}
+        <p className="mt-2 text-center text-sm sm:text-base">
+          {mode === "signup"
+            ? "Join the journey toward becoming a UK Wildcat."
+            : "Log in to continue your Wildcat Journey."}
+        </p>
 
-              <div>
-                <label className="text-primary">Email</label>
-                <input
-                  className="mt-1 w-full rounded-xl border border-white/10 bg-[#e8f0fe] px-3 py-2"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  placeholder="you@email.com"
-                  type="email"
-                  required
-                />
-              </div>
+        {emailSent ? (
+          <AuthEmailSent
+            email={email}
+            onBackToSignIn={handleBackToSignIn}
+          />
+        ) : (
+          <AuthForm
+            mode={mode}
+            fullName={fullName}
+            email={email}
+            password={password}
+            confirmPassword={confirmPassword}
+            error={error}
+            busy={busy}
+            showPassword={showPassword}
+            showConfirmPassword={showConfirmPassword}
+            onSubmit={submit}
+            onFullNameChange={setFullName}
+            onEmailChange={setEmail}
+            onPasswordChange={setPassword}
+            onConfirmPasswordChange={setConfirmPassword}
+            onTogglePassword={() => setShowPassword((prev) => !prev)}
+            onToggleConfirmPassword={() =>
+              setShowConfirmPassword((prev) => !prev)
+            }
+          />
+        )}
 
-              <div>
-                <label className="text-primary">Password</label>
-                <div className="relative">
-                  <input
-                    className="mt-1 w-full rounded-xl border border-white/10 bg-[#e8f0fe] px-3 py-2 pr-10"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    placeholder="••••••••"
-                    type={showPassword ? "text" : "password"}
-                    minLength={6}
-                    required
-                  />
-
-                  <button
-                    type="button"
-                    onClick={() => setShowPassword((prev) => !prev)}
-                    className="absolute right-3 top-1/2 -translate-y-1/2 text-primary"
-                  >
-                    {showPassword ? <FiEyeOff size={18} /> : <FiEye size={18} />}
-                  </button>
-                </div>
-              </div>
-
-              {mode === "signup" && (
-                <div>
-                  <label className="text-primary">Confirm password</label>
-                  <div className="relative">
-                    <input
-                      className="mt-1 w-full rounded-xl border border-white/10 bg-[#e8f0fe] px-3 py-2 pr-10"
-                      value={confirmPassword}
-                      onChange={(e) => setConfirmPassword(e.target.value)}
-                      placeholder="••••••••"
-                      type={showConfirmPassword ? "text" : "password"}
-                      minLength={6}
-                      required
-                    />
-
-                    <button
-                      type="button"
-                      onClick={() => setShowConfirmPassword((prev) => !prev)}
-                      className="absolute right-3 top-1/2 -translate-y-1/2 text-primary"
-                    >
-                      {showConfirmPassword ? <FiEyeOff size={18} /> : <FiEye size={18} />}
-                    </button>
-                  </div>
-                </div>
-              )}
-
-              {error && (
-                <div className="rounded-xl bg-red-200/50 text-red-500 font-semibold p-3 text-md">
-                  * {error}
-                </div>
-              )}
-
-              <button
-                disabled={busy}
-                className="w-full rounded-xl border border-white/10 bg-primary hover:bg-secondary transition px-4 py-2 text-white text-xl disabled:opacity-50"
+        {!emailSent && (
+          <div className="mt-4 text-center text-sm text-primary opacity-80 sm:text-base">
+            {mode === "signup" ? (
+              <>
+                <span className="text-black">Already have an account? </span>
+                <button
+                  type="button"
+                  className="underline"
+                  onClick={() => setMode("signin")}
                 >
-                {busy ? "Please wait..." : mode === "signup" ? "Sign up" : "Sign in"}
-              </button>
-            </form>
-          )}
-
-          {!emailSent && (
-            <div className="mt-4 text-md text-primary opacity-80">
-              {mode === "signup" ? (
-                <>
-                  <span className="text-black">Already have an account?{" "}</span>
-                  <button className="underline" onClick={() => setMode("signin")}>
-                    Sign in
-                  </button>
-                </>
-              ) : (
-                <>
-                  <span className="text-black">New here?{" "}</span>
-                  <button className="underline hover:scale-100" onClick={() => setMode("signup")}>
-                    Create an account
-                  </button>
-                </>
-              )}
-            </div>
-          )}
-        </div>
+                  Sign in
+                </button>
+              </>
+            ) : (
+              <>
+                <span className="text-black">New here? </span>
+                <button
+                  type="button"
+                  className="underline"
+                  onClick={() => setMode("signup")}
+                >
+                  Create an account
+                </button>
+              </>
+            )}
+          </div>
+        )}
       </div>
     </div>
   );
