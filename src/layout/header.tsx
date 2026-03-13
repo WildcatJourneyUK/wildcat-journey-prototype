@@ -10,6 +10,7 @@ import { CgProfile } from "react-icons/cg";
 export default function Header() {
   const nav = useNavigate();
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const notLandingPage = !["/", "/auth"].includes(window.location.pathname);
 
   useEffect(() => {
     getSession()
@@ -32,26 +33,36 @@ export default function Header() {
         {/* MOBILE LOGOS */}
         <div className="md:hidden">
           {isAuthenticated ? (
-            <img
-              src={WJTinyLogo}
-              className="h-10"
-              alt="Wildcat Journey"
-            />
+            <a href="/">
+              <img
+                src={WJTinyLogo}
+                className="h-10"
+                alt="Wildcat Journey"
+              />
+            </a>
           ) : (
             <div className="flex items-center gap-2">
-              <img src={ukLogo} className="h-10 border-r pr-5" />
-              <img src={WildcatJourneyLogo} className="h-12" />
+              <a href="https://www.uky.edu/" target="_blank">
+                <img src={ukLogo} className="h-10 border-r pr-5" />
+              </a>
+              <a href="/">
+                <img src={WildcatJourneyLogo} className="h-12" />
+              </a>
             </div>
           )}
         </div>
 
         {/* DESKTOP LOGOS */}
         <div className="hidden md:flex items-center">
-          <img className="h-16 border-r pr-8" src={ukLogo} />
-          <img className="h-24 ml-2" src={WildcatJourneyLogo} />
+          <a href="https://www.uky.edu/" target="_blank">
+            <img className="h-16 border-r pr-8" src={ukLogo} />
+          </a>
+          <a href="/">
+            <img src={WildcatJourneyLogo} className="h-24 ml-2" />
+          </a>
         </div>
 
-        {isAuthenticated && (
+        {isAuthenticated && notLandingPage && (
           <div className="flex items-center gap-4 md:gap-6 text-xl md:text-2xl">
             <button
               onClick={() => nav("/profile")}

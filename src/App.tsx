@@ -8,11 +8,13 @@ import AdmissionDashboard from "./features/admission/AdmissionDashboard";
 
 import AuthPage from "./features/auth/AuthPage";
 import ProfilePage from "./features/profile/ProfilePage";
+import LandingPage from "./features/landing/LandingPage";
 
 export default function App() {
   return (
     <Routes>
       <Route path="/auth" element={<AuthPage />} />
+      <Route path="/" element={<LandingPage/>} />
 
       <Route
         path="/dashboard"
