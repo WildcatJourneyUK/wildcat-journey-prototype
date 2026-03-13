@@ -1,5 +1,5 @@
 import { Routes, Route } from "react-router-dom";
-import { LogoutAndRedirect, ProtectedRoute } from "./routes/ProtectedRoute";
+import { AuthRedirect, ProtectedRoute } from "./routes/ProtectedRoute";
 import DashboardRouter from "./routes/DashboardRouter";
 
 import StudentDashboard from "./features/student/StudentDashboard";
@@ -8,11 +8,13 @@ import AdmissionDashboard from "./features/admission/AdmissionDashboard";
 
 import AuthPage from "./features/auth/AuthPage";
 import ProfilePage from "./features/profile/ProfilePage";
+import LandingPage from "./features/landing/LandingPage";
 
 export default function App() {
   return (
     <Routes>
       <Route path="/auth" element={<AuthPage />} />
+      <Route path="/" element={<LandingPage/>} />
 
       <Route
         path="/dashboard"
@@ -59,7 +61,7 @@ export default function App() {
         }
       />
 
-      <Route path="*" element={<LogoutAndRedirect />} />
+      <Route path="*" element={<AuthRedirect />} />
     </Routes>
   );
 }

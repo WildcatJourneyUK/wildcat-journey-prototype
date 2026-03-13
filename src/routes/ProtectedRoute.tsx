@@ -35,23 +35,30 @@ export function ProtectedRoute({ children }: { children: JSX.Element }) {
   return children;
 }
 
-export function LogoutAndRedirect() {
-  const [done, setDone] = useState(false);
+export function AuthRedirect() {
+  const [destination, setDestination] = useState<string | null>(null);
 
   useEffect(() => {
-    (async () => {
+    async function check() {
       try {
-        await signOut();
-        setDone(true);
+        const session = await getSession();
+
+        if (session) {
+          setDestination("/dashboard");
+        } else {
+          setDestination("/auth");
+        }
       } catch {
-        console.error("Sign out error.")
+        setDestination("/auth");
       }
-    })();
+    }
+
+    check();
   }, []);
 
-  if (!done) {
-    return <Loading />; 
+  if (!destination) {
+    return <Loading />;
   }
 
-  return <Navigate to="/auth" replace />;
+  return <Navigate to={destination} replace />;
 }

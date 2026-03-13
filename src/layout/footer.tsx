@@ -1,16 +1,18 @@
 import { BsGithub } from "react-icons/bs";
-import UniversityLogo from "../assets/univeristy-of-kentucky-logo.svg";
+import UniversityLogo from "../assets/university-of-kentucky-logo.svg";
 import { MdOpenInNew } from "react-icons/md";
 
 export default function Footer() {
   return (
     <footer className="w-full bg-primary text-white px-4 py-6 sm:px-6 sm:py-8">
       <div className="mx-auto flex max-w-5xl flex-col items-center text-center">
-        <img
-          className="mb-4 h-auto w-56 max-w-full sm:mb-6 sm:w-72"
-          src={UniversityLogo}
-          alt="University of Kentucky Logo"
-        />
+        <a href="https://www.uky.edu/" target="_blank">
+          <img
+            className="mb-4 h-auto w-56 max-w-full sm:mb-6 sm:w-72"
+            src={UniversityLogo}
+            alt="University of Kentucky Logo"
+          />
+        </a>
 
         <div className="flex flex-col items-center gap-4">
           <p className="text-sm leading-relaxed sm:text-base">
