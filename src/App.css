@@ -1,0 +1,8 @@
+.appShell {
+  display: flex;
+  flex-direction: column;
+}
+
+.mainContent {
+  min-height: calc(100svh - 128px);
+}

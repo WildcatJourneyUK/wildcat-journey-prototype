@@ -19,7 +19,13 @@
 
   font-family: "usual", sans-serif;
   font-weight: 300;
-  font-size: 1rem;
-  line-height: 1rem;
+  font-size: 18px;
+
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
+html, body {
+  height: 100%;
+}
