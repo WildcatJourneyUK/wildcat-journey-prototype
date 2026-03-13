@@ -1,5 +1,5 @@
 import { Routes, Route } from "react-router-dom";
-import { LogoutAndRedirect, ProtectedRoute } from "./routes/ProtectedRoute";
+import { AuthRedirect, ProtectedRoute } from "./routes/ProtectedRoute";
 import DashboardRouter from "./routes/DashboardRouter";
 
 import StudentDashboard from "./features/student/StudentDashboard";
@@ -61,7 +61,7 @@ export default function App() {
         }
       />
 
-      <Route path="*" element={<LogoutAndRedirect />} />
+      <Route path="*" element={<AuthRedirect />} />
     </Routes>
   );
 }
